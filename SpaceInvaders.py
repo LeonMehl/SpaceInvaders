@@ -21,13 +21,15 @@ class Game:
 
         while not done:
             if len(self.aliens) == 0:
-                self.displayText("VICTORY ACHIEVED")
+                self.displayText("WIN")
 
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_LEFT]:  # sipka doleva
                 hero.x -= 2 if hero.x > 20 else 0  # leva hranice plochy
             elif pressed[pygame.K_RIGHT]:  # sipka doprava
                 hero.x += 2 if hero.x < width - 20 else 0  # prava hranice
+            elif pressed[pygame.K_q]:
+                pygame.quit()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -63,7 +65,7 @@ class Alien:
         self.x = x
         self.game = game
         self.y = y
-        self.size = 30
+        self.size = 40
 
     def draw(self):
         pygame.draw.rect(self.game.screen,  # renderovací plocha
@@ -90,7 +92,7 @@ class Hero:
     def draw(self):
         pygame.draw.rect(self.game.screen,
                          (210, 250, 251),
-                         pygame.Rect(self.x, self.y, 8, 5))
+                         pygame.Rect(self.x, self.y, 40, 20))
 
 
 class Generator:
@@ -113,9 +115,9 @@ class Rocket:
     def draw(self):
         pygame.draw.rect(self.game.screen,  # renderovací plocha
                          (254, 52, 110),  # barva objektu
-                         pygame.Rect(self.x, self.y, 2, 4))
+                         pygame.Rect(self.x, self.y, 10, 10))
         self.y -= 2  # poletí po herní ploše nahoru 2px/snímek
 
 
 if __name__ == '__main__':
-    game = Game(600, 400)
+    game = Game(500, 500)
